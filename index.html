@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Crystal Collector</title>
+
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+
+	<!-- Linking jQuery -->
+	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+
+
+
+	<!-- Google Fonts -->
+	<!--<link href='https://fonts.googleapis.com/css?family=Josefin+Sans|Lobster' rel='stylesheet' type='text/css'>
+	<link href='https://fonts.googleapis.com/css?family=Acme|Cherry+Swash' rel='stylesheet' type='text/css'> -->
+
+	<!-- My CSS --> 
+	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+</head>
+
+<body>
+
+<!-- Page Layout -->
+<div class="container">
+
+	<div class="row">
+		<div class="col-md-12 text-center">
+			<h1>Crystal Collector!</h1>
+			<h3 class="instructions">Instructions</h3>
+			<div class="text col-md-8 col-md-offset-2">
+				<p>*You're given a random number at the start of the game. Your goal is to click on the crystals and get your total score to match this number.</p>
+				<p>Clicking on a crystal will add a set amount of points to your total score.</p>
+				<p>The value of each crystal is hidden from you until you click on it.</p>
+				<p>You win the game by matching your total score to the random number, you lose the game if your total score goes above the random number.</p>
+				<p>Each time the game starts, the crystals will get a new random value.</p>
+			</div>
+		</div>
+	</div>
+	<br><br>
+
+	<div class="row">
+
+		<div class="col-md-6 text-center">
+			<div class="col-md-12">
+				<h2>Match This Number: <span class="numberdisplay"></h2>
+			</div>
+			<div class="col-md-12">
+				<h2>Your Current Number: <span class="guessdisplay">0</span></h2>
+			</div>
+
+			<div class="col-md-12">
+			<br>
+			<br>
+				<div class="col-md-2 col-md-offset-2">
+					<img class="redcrystal" src="assets/images/red.png">
+				</div>
+				<div class="col-md-2">
+					<img class="bluecrystal" src="assets/images/blue.png">
+				</div>
+				<div class="col-md-2">
+					<img class="yellowcrystal" src="assets/images/yellow.png">
+				</div>
+				<div class="col-md-2">
+					<img class="greencrystal" src="assets/images/green.png">
+				</div>
+			</div>
+
+		</div>
+
+		<div class="col-md-6">
+			<div class="col-md-12 text-center stats">
+<!-- 				<h2 class="underline">Objective</h2>
+				<p>You will be given a random number at the start of the game.</p>
+				<p>There are four crystals to the right. By clicking on a crystal you will ass a specific amount of points to your total score.</p>
+				<p>You win the game by matching your total score to the random number, you lose he game if your total score goes above the random number.</p>
+				<p>The value of each crystal is hidden from you until you click on it.</p>
+				<p>Each time the game starts, the value of the crystals will be changed again.</p> -->
+				<h2>Stats</h2>
+				<p>Wins: <span id="winCount">0</span></p>
+				<p>Losses: <span id="loseCount">0</span></p>
+				<!--<p>Current Streak: <span id="currentstreakdisplay">0</span></p>
+				<p>Longest Streak: <span id="longeststreakdisplay">0</span></p> -->
+			</div>
+		</div>
+	</div>
+
+<script>
+	var number = Math.floor((Math.random() * 120) + 1);
+	var blue = Math.floor((Math.random() * 12) + 1);
+	var red = Math.floor((Math.random() * 12) + 1);
+	var yellow = Math.floor((Math.random() * 12) + 1);
+	var green = Math.floor((Math.random() * 12) + 1);
+	var sum = 0;
+	var wins = 0;
+	var losses = 0;
+
+	$(".numberdisplay").html(number);
+
+	$(".redcrystal").click(function() {
+		changeValues(red);
+	});
+
+	$(".bluecrystal").click(function() {
+		changeValues(blue);
+	});
+
+	$(".yellowcrystal").click(function() {
+		changeValues(yellow);
+	});
+
+	$(".greencrystal").click(function() {
+		changeValues(green);
+	});
+	
+	function newGame() 
+	{
+		number = Math.floor((Math.random() * 120) + 1);
+		$(".numberdisplay").html(number);
+		blue = Math.floor((Math.random() * 12) + 1);
+		red = Math.floor((Math.random() * 12) + 1);
+		yellow = Math.floor((Math.random() * 12) + 1);
+		green = Math.floor((Math.random() * 12) + 1);
+		sum = 0;
+		$(".guessdisplay").html(sum);
+	};
+
+	function changeValues(color) 
+	{
+		sum += color;
+		$(".guessdisplay").empty();
+		$(".guessdisplay").append(sum);
+		if (sum > number) 
+		{
+			losses++;
+			$("#loseCount").html(losses);
+			newGame();
+		}
+		
+		else if (sum == number) 
+		{
+			wins++;
+			$("#winCount").html(wins);
+			newGame();
+			
+
+		};
+	};
+	</script>
+</div>
+
+
+
+
+</body>
+</html>
